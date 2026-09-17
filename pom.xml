@@ -18,6 +18,9 @@
         <cucumber.version>7.27.2</cucumber.version>
         <junit.jupiter.version>5.13.4</junit.jupiter.version>
         <junit.platform.version>1.13.4</junit.platform.version>
+
+        <!-- Allure  -->
+        <allure.version>2.29.1</allure.version>
     </properties>
 
     <!-- ============================= -->
