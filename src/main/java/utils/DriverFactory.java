@@ -3,6 +3,7 @@ package utils;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -33,7 +34,12 @@ public final class DriverFactory {
             case "edge" -> driver = new EdgeDriver();
             default -> {
                 ChromeOptions options = new ChromeOptions();
-                options.addArguments("--start-maximized", "--disable-notifications");
+                options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+                options.addArguments(
+                        "--start-maximized",
+                        "--disable-notifications",
+                        "--disable-extensions",
+                        "--disable-popup-blocking");
                 if (Boolean.parseBoolean(System.getProperty("headless", "false"))) {
                     options.addArguments("--headless=new", "--window-size=1440,900");
                 }

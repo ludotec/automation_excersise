@@ -10,6 +10,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
+import steps.ScenarioContext;
 import utils.DriverFactory;
 
 /** Preparación y limpieza común para futuros escenarios Cucumber. */
@@ -19,6 +20,7 @@ public class Hooks {
 
     @Before
     public void setUp() {
+        ScenarioContext.clear();
         driver = DriverFactory.getDriver();
         DriverFactory.navegarABase();
     }

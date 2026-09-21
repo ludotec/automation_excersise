@@ -22,6 +22,7 @@ Característica: Flujos de compra de punta a punta
     Dado que tengo una cuenta registrada y no inicié sesión
     Cuando inicio sesión con mis credenciales válidas
     Y agrego un producto al carrito
+    Y agrego otro producto al carrito
     Y actualizo la cantidad del producto
     Y elimino un producto del carrito
     Y avanzo al checkout y completo el pago
