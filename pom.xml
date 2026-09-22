@@ -187,14 +187,8 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <systemPropertyVariables>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${project.basedir}/target/allure-results</value>
-                        </property>
-                        <property>
-                            <name>app.slow.ms</name>
-                            <value>0</value>
-                        </property>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <app.slow.ms>0</app.slow.ms>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
@@ -212,8 +206,8 @@
                 <version>${allure.maven.plugin.version}</version>
                 <configuration>
                     <reportVersion>2.29.0</reportVersion>
-                    <resultsDirectory>${project.basedir}/target/allure-results</resultsDirectory>
-                    <reportDirectory>${project.basedir}/target/site/allure</reportDirectory>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.build.directory}/site/allure</reportDirectory>
                 </configuration>
             </plugin>
 

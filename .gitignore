@@ -1,7 +1,13 @@
 target/
-allure-results/
-allure-report/
 .allure/
+docs/entregables/allure-report/
+ESTADO_HU22_HU28.md
+ESTADO_HU29_HU39.md
+MANUAL_TESTS.md
+
+# Resultados y reportes generados en la raíz (no el snapshot de entrega)
+/allure-results/
+/allure-report/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
