@@ -7,7 +7,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-/** Prepara datos de prueba sin depender de la estabilidad de los formularios UI. */
+/** Crea cuentas de prueba vía la API del sitio (`/api/createAccount`) para evitar
+ * depender de los formularios de registro, que son inestables y bloquean los
+ * escenarios E2E. */
 public final class ApiDataFactory {
 
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
@@ -15,6 +17,8 @@ public final class ApiDataFactory {
     private ApiDataFactory() {
     }
 
+    /** Crea la cuenta en el sitio vía API. Devuelve `true` si la respuesta es
+     * 200/201, `false` en caso contrario (incluyendo errores de red). */
     public static boolean createAccount(String email, String password) {
         String body = form(
                 "name", "QA Automation",
@@ -48,6 +52,8 @@ public final class ApiDataFactory {
         }
     }
 
+    /** Construye el body `application/x-www-form-urlencoded` a partir de pares
+     * clave/valor. */
     private static String form(String... values) {
         StringBuilder body = new StringBuilder();
         for (int i = 0; i < values.length; i += 2) {

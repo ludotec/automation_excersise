@@ -22,6 +22,11 @@ public class Hooks {
     public void setUp() {
         ScenarioContext.clear();
         driver = DriverFactory.getDriver();
+        try {
+            driver.manage().deleteAllCookies();
+        } catch (RuntimeException ignored) {
+            // El navegador todavía no está navegando.
+        }
         DriverFactory.navegarABase();
     }
 

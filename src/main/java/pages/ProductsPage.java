@@ -24,25 +24,32 @@ public class ProductsPage extends BasePage {
         driver.get(utils.DriverFactory.BASE_URL + "products");
     }
 
+    /** Busca un producto por nombre en la página de Products. */
     public void search(String product) {
         openProducts();
         type(searchInput, product);
         click(searchButton);
     }
 
+    /** Indica si hay productos renderizados en la página actual. */
     public boolean hasProducts() {
         return !driver.findElements(productCards).isEmpty();
     }
 
+    /** Devuelve el nombre del primer producto listado. */
     public String firstProductName() {
         return driver.findElements(productNames).get(0).getText();
     }
 
+    /** Agrega el primer producto de la lista al carrito y espera el modal de
+     * confirmación. */
     public void addFirstProductToCart() {
         click(addToCartButtons);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#cartModal.show")));
     }
 
+    /** Agrega el segundo producto de la lista. Si no hay un segundo disponible,
+     * agrega el primero para mantener la continuidad del flujo. */
     public void addSecondProductToCart() {
         var products = driver.findElements(addToCartButtons);
         if (products.size() < 2) {
@@ -53,12 +60,17 @@ public class ProductsPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#cartModal.show")));
     }
 
+    /** Cierra el modal de producto agregado si está presente. Si no hay modal,
+     * no hace nada. */
     public void continueShopping() {
         if (!driver.findElements(continueShopping).isEmpty()) {
             click(continueShopping);
         }
     }
 
+    /** Navega al carrito. Prioriza el botón del modal de "Added!" porque aparece
+     * tras agregar un producto. Si el modal no está, intenta el enlace del header;
+     * si tampoco está, navega directamente a la URL. */
     public void viewCart() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(modalViewCart));

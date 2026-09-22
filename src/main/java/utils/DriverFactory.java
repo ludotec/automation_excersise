@@ -9,9 +9,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-/** Administra el ciclo de vida del navegador compartido por las páginas. */
+/** Crea y mantiene el navegador compartido entre las páginas del proyecto.
+ * Usamos una sola instancia porque la sesión de cookies y de AdSense es estable
+ * durante toda la suite y re-crear el navegador entre steps ralentiza mucho. */
 public final class DriverFactory {
 
+    /** URL base del sitio bajo prueba. */
     public static final String BASE_URL = "https://www.automationexercise.com/";
 
     private static WebDriver driver;
@@ -19,6 +22,8 @@ public final class DriverFactory {
     private DriverFactory() {
     }
 
+    /** Devuelve el navegador activo o crea uno nuevo con la configuración por
+     * defecto (Chrome con PageLoadStrategy.EAGER). */
     public static WebDriver getDriver() {
         if (driver == null) {
             crearDriver(System.getProperty("browser", "chrome"));
@@ -26,6 +31,8 @@ public final class DriverFactory {
         return driver;
     }
 
+    /** Crea el navegador solicitado. Por defecto usa Chrome con `EAGER` para no
+     * bloquear la finalización del evento `load` por culpa de AdSense. */
     public static void crearDriver(String navegador) {
         String browser = navegador == null ? "chrome" : navegador.toLowerCase();
 
@@ -51,6 +58,8 @@ public final class DriverFactory {
         driver.manage().timeouts().implicitlyWait(Duration.ZERO);
     }
 
+    /** Cierra el navegador y libera la referencia. Llamado desde los hooks
+     * `@After` para que cada escenario empiece con un navegador limpio. */
     public static void cerrarDriver() {
         if (driver != null) {
             try {
@@ -61,6 +70,7 @@ public final class DriverFactory {
         }
     }
 
+    /** Navega a la portada del sitio. */
     public static void navegarABase() {
         getDriver().get(BASE_URL);
     }

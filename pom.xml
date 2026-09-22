@@ -196,10 +196,6 @@
                             <value>0</value>
                         </property>
                     </systemPropertyVariables>
-                    <!-- Se habilita cuando se agreguen features Gherkin. -->
-                    <excludes>
-                        <exclude>**/TestRunner.java</exclude>
-                    </excludes>
                 </configuration>
                 <dependencies>
                     <dependency>

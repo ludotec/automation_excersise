@@ -76,6 +76,8 @@ public class CartSteps {
         assertEquals(0, ScenarioContext.cartPage().productCount());
     }
 
+    /** Helper que navega al carrito y devuelve la page object lista. Lo
+     * reutilizan los steps que empiezan desde el carrito. */
     private void abrirCarrito() {
         ScenarioContext.productsPage().viewCart();
         ScenarioContext.cartPage(new CartPage(driver));

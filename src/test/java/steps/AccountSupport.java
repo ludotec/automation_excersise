@@ -10,11 +10,17 @@ import pages.LoginPage;
 import pages.SignupPage;
 import utils.ApiDataFactory;
 
+/** Crea y reutiliza una cuenta temporal de pruebas. Se prefiere la API
+ * (`/api/createAccount`) por ser estable; si falla, se recurre al formulario
+ * de registro del sitio. */
 final class AccountSupport {
 
     private AccountSupport() {
     }
 
+    /** Garantiza que existe una cuenta y que la sesión está iniciada. Si no hay
+     * credenciales guardadas en `ScenarioContext`, genera un email único, crea la
+     * cuenta vía API y la loguea. */
     static void ensureAccount(WebDriver driver) {
         if (ScenarioContext.createdEmail() == null) {
             String email = "qa" + Instant.now().toEpochMilli() + "@correo.com";
@@ -38,6 +44,7 @@ final class AccountSupport {
         assertTrue(login.isLoggedIn(), "No se pudo iniciar sesión con la cuenta temporal");
     }
 
+    /** Garantiza que no hay sesión iniciada. Si la hay, la cierra. */
     static void ensureLoggedOut(WebDriver driver) {
         LoginPage login = new LoginPage(driver);
         if (login.isLoggedIn()) {

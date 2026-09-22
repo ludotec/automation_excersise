@@ -20,7 +20,7 @@ Característica: Flujos de compra de punta a punta
   @fl02
   Escenario: FL02 - Compra con login previo
     Dado que tengo una cuenta registrada y no inicié sesión
-    Cuando inicio sesión con mis credenciales válidas
+    Y inicio sesión con mis credenciales válidas para pagar
     Y agrego un producto al carrito
     Y agrego otro producto al carrito
     Y actualizo la cantidad del producto
@@ -28,7 +28,7 @@ Característica: Flujos de compra de punta a punta
     Y avanzo al checkout y completo el pago
     Entonces veo "Your order has been placed successfully!"
 
-  @fl03
+  @fl03 @Manual
   Escenario: FL03 - Registro durante el checkout
     Dado que tengo un producto en el carrito y no inicié sesión
     Cuando avanzo al checkout
@@ -41,8 +41,8 @@ Característica: Flujos de compra de punta a punta
   Escenario: FL04 - Búsqueda y compra
     Dado que estoy en la página de Products y no inicié sesión
     Cuando busco un producto por su nombre
-    Y agrego un resultado al carrito
+    Y agrego un resultado de búsqueda al carrito
     Y avanzo al checkout
-    Y inicio sesión con credenciales válidas
+    Y inicio sesión con mis credenciales válidas para pagar
     Y completo el pago
     Entonces veo "Your order has been placed successfully!"

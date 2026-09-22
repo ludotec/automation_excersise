@@ -27,6 +27,9 @@ public class SignupPage extends BasePage {
         super(driver);
     }
 
+    /** Completa el formulario de creación de cuenta con valores fijos para que el
+     * escenario no dependa de generación aleatoria. El usuario recibe un nombre
+     * dinámico y la contraseña llega por parámetro. */
     public void completeAccount(String name, String passwordValue) {
         click(title);
         type(password, passwordValue);
@@ -44,10 +47,12 @@ public class SignupPage extends BasePage {
         click(createAccount);
     }
 
+    /** Indica si el sitio muestra el mensaje de "Account Created!". */
     public boolean isAccountCreated() {
         return isVisible(accountCreated);
     }
 
+    /** Click en "Continue" para volver al home ya autenticado. */
     public void continueToHome() {
         click(continueButton);
     }
