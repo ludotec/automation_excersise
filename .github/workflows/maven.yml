@@ -59,3 +59,28 @@ jobs:
             target/cucumber-reports.html
             target/surefire-reports
           retention-days: 14
+
+      - name: Preparar el reporte para Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/site/allure
+
+  # Deja el HTML de Allure servido en Pages, así no hay que bajar el zip
+  publicar-reporte:
+    needs: e2e-tests
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write            # lo pide deploy-pages
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
