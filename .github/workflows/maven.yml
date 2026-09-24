@@ -1,0 +1,61 @@
+# Corre la suite E2E (Selenium + Cucumber + JUnit 5) y publica el reporte Allure
+name: Tests E2E - Automation Exercise
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:          # permite correrlo a mano desde la pestaña Actions
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Instalar Google Chrome (última estable)
+        run: |
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+          google-chrome --version
+
+      - name: Correr la suite principal en modo headless
+        run: >
+          mvn -B test
+          -Dheadless=true
+          -Dcucumber.filter.tags="@alta and not @Manual"
+
+      - name: Generar reporte Allure
+        if: always()          # se genera aunque fallen tests
+        run: mvn -B allure:report
+
+      - name: Subir reporte Allure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/site/allure
+          retention-days: 14
+
+      - name: Subir resultados crudos y reporte de Cucumber
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-tests
+          path: |
+            target/allure-results
+            target/cucumber-reports.html
+            target/surefire-reports
+          retention-days: 14
