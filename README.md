@@ -4,8 +4,18 @@ Automatización E2E de [Automation Exercise](https://www.automationexercise.com/
 
 Alcance de la suite: escenarios de **prioridad Alta**, excepto **FL03** (`@Manual`).
 
+## Equipo
+
+- Bladimir Zink
+- Elias Schiel
+- Claudio Fuentes
+- Juan Espasandin
+- Anabela Juarez
+- Gabriel Pretel
+
 ## Contenido
 
+- [Equipo](#equipo)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
 - [Ejecutar las pruebas](#ejecutar-las-pruebas)
